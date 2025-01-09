@@ -15,11 +15,11 @@ const mainMenu = async () => {
                 'Add Role',
                 'View All Departments',
                 'Add Department',
+                `Delete Employee`,
                 'Quit'
             ]
         }
     ]);
-
     switch (choice) {
         case 'View All Employees':
             await viewEmployees();
@@ -42,11 +42,13 @@ const mainMenu = async () => {
         case 'Add Department':
             await addDepartment();
             break;
+        case 'Delete Employee':
+        await deleteEmployee();
+        break;
         case 'Quit':
             process.exit(0);
     }
 };
-
 const viewEmployees = async () => {
     const query = `
         SELECT 
@@ -62,14 +64,13 @@ const viewEmployees = async () => {
         LEFT JOIN department d ON r.department_id = d.id
         LEFT JOIN employee m ON e.manager_id = m.id
     `;
-
     try {
         const result = await pool.query(query);
         console.table(result.rows);
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
 const addEmployee = async () => {
@@ -78,10 +79,8 @@ const addEmployee = async () => {
             pool.query('SELECT id, title FROM role'),
             pool.query('SELECT id, CONCAT(first_name, \' \', last_name) as name FROM employee')
         ]);
-
         const roles = rolesResult.rows;
         const employees = employeesResult.rows;
-
         const answers = await inquirer.prompt([
             {
                 type: 'input',
@@ -117,23 +116,17 @@ const addEmployee = async () => {
                 ]
             }
         ]);
-
-        await pool.query(
-            'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)',
-            [answers.firstName, answers.lastName, answers.roleId, answers.managerId]
-        );
+        await pool.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)', [answers.firstName, answers.lastName, answers.roleId, answers.managerId]);
         console.log('Employee added successfully!');
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
-
 const updateEmployeeRole = async () => {
     const employees = (await pool.query('SELECT id, first_name, last_name FROM employee')).rows;
     const roles = (await pool.query('SELECT id, title FROM role')).rows;
-
     const answers = await inquirer.prompt([
         {
             type: 'list',
@@ -154,40 +147,32 @@ const updateEmployeeRole = async () => {
             }))
         }
     ]);
-
     try {
-        await pool.query(
-            'UPDATE employee SET role_id = $1 WHERE id = $2',
-            [answers.roleId, answers.employeeId]
-        );
+        await pool.query('UPDATE employee SET role_id = $1 WHERE id = $2', [answers.roleId, answers.employeeId]);
         console.log('Employee role updated successfully!');
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
-
 const viewRoles = async () => {
     const query = `
         SELECT r.id, r.title, d.name as department, r.salary
         FROM role r
         LEFT JOIN department d ON r.department_id = d.id
     `;
-
     try {
         const result = await pool.query(query);
         console.table(result.rows);
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
-
 const addRole = async () => {
     const departments = (await pool.query('SELECT id, name FROM department')).rows;
-
     const answers = await inquirer.prompt([
         {
             type: 'input',
@@ -210,31 +195,25 @@ const addRole = async () => {
             }))
         }
     ]);
-
     try {
-        await pool.query(
-            'INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)',
-            [answers.title, answers.salary, answers.departmentId]
-        );
+        await pool.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [answers.title, answers.salary, answers.departmentId]);
         console.log('Role added successfully!');
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
-
 const viewDepartments = async () => {
     try {
         const result = await pool.query('SELECT * FROM department');
         console.table(result.rows);
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
-
 const addDepartment = async () => {
     const answer = await inquirer.prompt([
         {
@@ -243,19 +222,54 @@ const addDepartment = async () => {
             message: 'What is the name of the department?'
         }
     ]);
-
     try {
-        await pool.query(
-            'INSERT INTO department (name) VALUES ($1)',
-            [answer.name]
-        );
+        await pool.query('INSERT INTO department (name) VALUES ($1)', [answer.name]);
         console.log('Department added successfully!');
-    } catch (err) {
+    }
+    catch (err) {
         console.error('Error:', err);
     }
-
     await mainMenu();
 };
 
+    const deleteEmployee = async () => {
+        // First get all employees
+        const employees = (await pool.query('SELECT id, first_name, last_name FROM employee')).rows;
+        
+        const answer = await inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'removeEmployee',
+                message: 'Are you sure you want to remove this employee?'
+            }
+        ]);
+    
+        if (answer.removeEmployee) {
+            const { employeeId } = await inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employeeId',
+                    message: 'Select the employee to remove:',
+                    choices: employees.map(emp => ({
+                        name: `${emp.first_name} ${emp.last_name}`,
+                        value: emp.id
+                    }))
+                }
+            ]);
+    
+            try {
+                await pool.query('DELETE FROM employee WHERE id = $1', [employeeId]);
+                console.log('Employee removed successfully!');
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        }
+    
+        await mainMenu();
+    };
+
 // Start the application
-mainMenu().catch(console.error);
+(async () => {
+   await mainMenu(); // Display the main menu
+})();
+
