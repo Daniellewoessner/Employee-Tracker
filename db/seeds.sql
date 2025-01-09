@@ -7,21 +7,21 @@ INSERT INTO department (name) VALUES
 
 -- Wait for department insert to complete, then:
 INSERT INTO role (title, salary, department_id) VALUES
-('Sales Lead', 100000, 1),
-('Salesperson', 80000, 1),
-('Lead Engineer', 150000, 2),
-('Software Engineer', 120000, 2),
-('Accountant', 125000, 3),
-('Legal Team Lead', 250000, 4),
-('Lawyer', 190000, 4);
+('Sales Lead', 110000, 1),
+('Salesperson', 85000, 1),
+('Lead Engineer', 1500000, 2),
+('Software Engineer', 230000, 2),
+('Accountant', 135000, 3),
+('Legal Team Lead', 220000, 4),
+('Lawyer', 215000, 4);
 
 -- Finally add employees
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
-('John', 'Doe', 1, NULL),
-('Mike', 'Chan', 2, 1),
-('Ashley', 'Rodriguez', 3, NULL),
-('Kevin', 'Tupik', 4, 3),
-('Kunal', 'Singh', 5, 3),
-('Malia', 'Brown', 5, 3),
-('Sarah', 'Lourd', 6, NULL),
-('Tom', 'Allen', 7, 7);
+('Eva', 'Valentine', 1, NULL),
+('Cindy', 'Franklin', 2, 1),
+('Brendan', 'Palmer', 3, NULL),
+('Franklin ', 'Cole', 4, 3),
+('Hayden', 'Lawson', 5, 3),
+('Scarlett', 'Meadows', 5, 3),
+('Chelsea', 'Jimenez', 6, NULL),
+('Jennifer', 'Fulton', 7, 7);
