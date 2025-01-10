@@ -15,8 +15,9 @@
   * [Question](#Question)
 
   ## Requirements
-*[**Inquire Package**](https://www.npmjs.com/package/inquirer/v/8.2.4)
-*[**Pg Package**](https://www.npmjs.com/package/pg)
+[**Inquire Package**](https://www.npmjs.com/package/inquirer/v/8.2.4)
+
+[**Pg Package**](https://www.npmjs.com/package/pg)
 
   ## Installation
 To download the source code from a GitHub repository first navigate to the main page of the repository you are interested in. Once there look to the right side of the file list and click on the "Releases" section. This will take you to the Releases page where you can find various versions of the project. At the top of this page click on the "Tags" option to see different tagged releases. Finally to download the source code simply click on the zip file link provided.
