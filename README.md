@@ -15,8 +15,8 @@
   * [Question](#Question)
 
   ## Requirements
-[**Inquire Package**](https://www.npmjs.com/package/inquirer/v/8.2.4)
-[**Pg Package**](https://www.npmjs.com/package/pg)
+*[**Inquire Package**](https://www.npmjs.com/package/inquirer/v/8.2.4)
+*[**Pg Package**](https://www.npmjs.com/package/pg)
 
   ## Installation
 To download the source code from a GitHub repository first navigate to the main page of the repository you are interested in. Once there look to the right side of the file list and click on the "Releases" section. This will take you to the Releases page where you can find various versions of the project. At the top of this page click on the "Tags" option to see different tagged releases. Finally to download the source code simply click on the zip file link provided.
@@ -25,6 +25,7 @@ To download the source code from a GitHub repository first navigate to the main 
 The Employee Tracker is a  tool designed to create a comprehensive database for storing essential employee information. It simplifies the process of managing important records, allowing businesses to easily access and update data such as salaries, job roles, and department assignments. By organizing this information in a clear and user-friendly manner, the Employee Tracker ensures that all team members can quickly find relevant details when needed
 
 ## Demo
+[**Demo Link**](https://drive.google.com/file/d/1ZqE7yGNdsbWWO1kv0e-JQFLuD2Jr83hK/view?usp=drive_link)
 
 ## License
 MIT
