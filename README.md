@@ -26,7 +26,7 @@ To download the source code from a GitHub repository first navigate to the main 
 The Employee Tracker is a  tool designed to create a comprehensive database for storing essential employee information. It simplifies the process of managing important records, allowing businesses to easily access and update data such as salaries, job roles, and department assignments. By organizing this information in a clear and user-friendly manner, the Employee Tracker ensures that all team members can quickly find relevant details when needed
 
 ## Demo
-[**Demo Link**](https://drive.google.com/file/d/1ZqE7yGNdsbWWO1kv0e-JQFLuD2Jr83hK/view?usp=drive_link)
+[**Demo Link**](https://drive.google.com/file/d/1kE0tlC5-GH57aDNIJ5Y6nP2zrXPlSCHM/view?usp=sharing)
 
 ## License
 MIT
